@@ -22,7 +22,7 @@ func _input(event):
 func _process(_delta):
 	if is_drawing:
 		$Line2D.points[point_count - 1] = round_and_return_mouse_pos()
-		
+
 
 func _add_point_at_position(pos):
 	$Line2D.add_point(pos)
