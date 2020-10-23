@@ -1,10 +1,10 @@
 extends Line2D
 
-#TODO: make the grid size global
-
-var grid_size: int = 25
+var grid_size: int
 
 func _ready():
+	grid_size = get_parent().grid_size
+	
 	add_point(Vector2(0,0))
 	var x = 0
 	var y = 0

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://art/white_circle_10_10.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+func _ready():
+	add_to_group(\"LineTerminators\")
+"
+
+[node name="LineTermination" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )

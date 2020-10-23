@@ -2,23 +2,32 @@ extends Node2D
 
 var is_drawing: bool = false
 var point_count: int = 0
-var grid_step: int = 25
+var grid_step: int 
 var last_pos: Vector2
 
 func _ready():
 	$Line2D.hide()
+	grid_step = get_parent().grid_size
 
-#TODO: finish line on enter/space or something
+#TODO: it breaks if you hold down click and move the mouse
 
 func _input(event):
 	if event is InputEventMouseButton && event.is_pressed(): #is_pressed debounces so we don't add to same spot
-		if !is_drawing:
+		if !is_drawing && point_count == 0:
 			$Line2D.show()
 			is_drawing = true
+			#add origin point
 			$Line2D.add_point(snap_first_point_to_grid())
+			point_count += 1
+			#add second point so it can be moved
+			$Line2D.add_point($Line2D.points[0])
+			point_count += 1
 		elif is_drawing:
 			$Line2D.add_point(add_next_point())
-		
+			point_count += 1
+			if get_parent().termination_points.has(add_next_point()):
+				is_drawing = false
+
 
 func _process(_delta):
 	if is_drawing:
