@@ -10,6 +10,7 @@ func _ready():
 	grid_step = get_parent().grid_size
 
 #TODO: it breaks if you hold down click and move the mouse
+#TODO: you can only start from a line termination
 
 func _input(event):
 	if event is InputEventMouseButton && event.is_pressed(): #is_pressed debounces so we don't add to same spot
