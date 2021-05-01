@@ -10,11 +10,13 @@ func _ready():
 	grid_step = get_parent().grid_size
 
 #TODO: it breaks if you hold down click and move the mouse
-#TODO: you can only start from a line termination
+#TODO: you can draw a second line after the first
+#TODO: add component object that has 2 termination points on it
+#TODO: make component objects able to be placed by the player
 
 func _input(event):
 	if event is InputEventMouseButton && event.is_pressed(): #is_pressed debounces so we don't add to same spot
-		if !is_drawing && point_count == 0:
+		if !is_drawing && point_count == 0 && get_parent().termination_points.has(snap_first_point_to_grid()): #checks that line begins at a termination point
 			$Line2D.show()
 			is_drawing = true
 			#add origin point
