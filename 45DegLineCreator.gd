@@ -10,8 +10,8 @@ func _ready():
 	grid_step = get_parent().grid_size
 
 #TODO: it breaks if you hold down click and move the mouse
-#TODO: you can draw a second line after the first
-#TODO: add component object that has 2 termination points on it
+#TODO: make it so you can draw a second line after the first
+#TODO: generalise termination points (currently only work if they are on Main)
 #TODO: make component objects able to be placed by the player
 
 func _input(event):
