@@ -7,6 +7,9 @@ script/source = "extends Node2D
 
 func _ready():
 	add_to_group(\"LineTerminators\")
+
+func update_line_term_array():
+	get_parent().get_parent().termination_points.append(global_position)
 "
 
 [node name="LineTermination" type="Node2D"]
