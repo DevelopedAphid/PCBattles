@@ -9,8 +9,8 @@ func _ready():
 	$Line2D.hide()
 	grid_step = get_parent().grid_size
 
-#TODO: it breaks if you hold down click and move the mouse
-#TODO: make it so you can draw a second line after the firsts
+#TODO: rename snap function
+#TODO: make it so you can draw a second line after the first (create line creator from main)
 #TODO: make component objects able to be placed by the player (and snap to grid)
 
 func _input(event):
@@ -20,15 +20,18 @@ func _input(event):
 			is_drawing = true
 			#add origin point
 			$Line2D.add_point(snap_first_point_to_grid())
+			last_pos = snap_first_point_to_grid()
 			point_count += 1
 			#add second point so it can be moved
 			$Line2D.add_point($Line2D.points[0])
 			point_count += 1
 		elif is_drawing:
-			$Line2D.add_point(add_next_point())
+			$Line2D.add_point(snap_next_point_to_grid())
+			last_pos = snap_next_point_to_grid()
 			point_count += 1
-			if get_parent().termination_points.has(add_next_point()):
+			if get_parent().termination_points.has(last_pos):
 				is_drawing = false
+				point_count = 0
 
 
 func _process(_delta):
@@ -54,13 +57,8 @@ func snap_next_point_to_grid():
 		
 		return mouse_pos
 
-func add_next_point():
-	last_pos = snap_next_point_to_grid()
-	return last_pos
-
 func snap_first_point_to_grid():
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	mouse_pos.x = stepify(mouse_pos.x, grid_step)
 	mouse_pos.y = stepify(mouse_pos.y, grid_step)
-	last_pos = mouse_pos
 	return mouse_pos
